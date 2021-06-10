@@ -9,6 +9,8 @@
   tasks:
     - shell: ip -f inet addr show ens33 | sed -En -e 's/.*inet ([0-9.]+).*/\1/p'
       register: publicIP
+    - name: "Print IP"
+      debug: var=publicIP.stdout
 - hosts: localhost
   gather_facts: False
   become: False
@@ -34,6 +36,7 @@
           - digitalSignature
         extended_key_usage:
           - serverAuth
+          - clientAuth
         subject_alt_name:
           - IP:{{ hostvars[item]['publicIP']['stdout']}}
           - IP:127.0.0.1
