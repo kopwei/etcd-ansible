@@ -40,6 +40,7 @@
         subject_alt_name:
           - IP:{{ hostvars[item]['publicIP']['stdout']}}
           - IP:127.0.0.1
+          - DNS:{{item}}
         force: True
       with_items: "{{ groups['etcd'] }}"
     - name: "Generate private key for CA"
